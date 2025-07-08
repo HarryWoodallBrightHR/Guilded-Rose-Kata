@@ -7,9 +7,9 @@ public class GildedRoseTest
     [Fact]
     public void Foo()
     {
-        List<Item> items = [ new Item { Name = "foo", SellIn = 0, Quality = 0 } ];
+        List<Item> items = [ new Item { Name = "Conjured Mana Cake", SellIn = 3, Quality = 10 } ];
         GildedRose app = new(items);
         app.UpdateQuality();
-        Assert.Equal("fixme", items[0].Name);
+        Assert.Equal(8, items[0].Quality);
     }
 }
