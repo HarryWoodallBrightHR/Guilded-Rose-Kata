@@ -1,9 +1,13 @@
 ﻿namespace GildedRoseKata;
 
-public class BetterItem : Item
+public class ConjuredItem : BetterItem
 {
-    public int DegradeWeight { get; set; } = -1;
-    public ItemType Type { get; set; }
+
+    public ConjuredItem()
+    {
+        DegradeWeight = -2;
+    }
+    
     
     public void Update()
     {
@@ -20,13 +24,4 @@ public class BetterItem : Item
             Quality = 0;
         }
     }
-}
-
-public enum ItemType
-{
-    Sulfuras,
-    BackstagePasses,
-    AgedBrie,
-    Conjured,
-    Normal,
 }

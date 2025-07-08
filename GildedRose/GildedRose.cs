@@ -3,6 +3,7 @@
 public class GildedRose
 {
     IList<Item> Items;
+
     public GildedRose(IList<Item> Items)
     {
         this.Items = Items;
@@ -13,121 +14,21 @@ public class GildedRose
         for (var i = 0; i < Items.Count; i++)
         {
             var betterItem = new ItemMapper().MapItem(Items[i]);
-
-            if (betterItem.SellIn == 0 && betterItem.Type != ItemType.BackstagePasses)
-            {
-                betterItem.DegradeWeight *= 2;
-            }
-
-            if (betterItem.Type == ItemType.BackstagePasses)
-            {
-                if (betterItem.SellIn <= 10 && betterItem.SellIn > 5)
-                {
-                    betterItem.DegradeWeight += 2;
-                }
-                
-                if (betterItem.SellIn <= 5 && betterItem.SellIn >= 0)
-                {
-                    betterItem.DegradeWeight += 3;
-                }
-
-                if (betterItem.SellIn < 0)
-                {
-                    betterItem.Quality = 0;
-                }
-            }
-
-           
-
-            betterItem.Quality += betterItem.DegradeWeight;
-            betterItem.SellIn -= 1;
-
-            if (betterItem.Quality <= 0)
-            {
-                betterItem.Quality = 0;
-            }
             
-            if (betterItem.Quality > 50 && betterItem.Type != ItemType.Sulfuras)
-            {
-                betterItem.Quality = 50;
-            }
-
-            if (betterItem.Type != ItemType.Sulfuras)
-            {
-                Items[i].Quality = betterItem.Quality;
-                Items[i].SellIn = betterItem.SellIn;
-            }
+            betterItem.Update();
             
-            
-            // Old stuff
-        //     if (
-        //         Items[i].Name != "Aged Brie" && 
-        //         Items[i].Name != "Backstage passes to a TAFKAL80ETC concert" &&
-        //         Items[i].Quality > 0 &&
-        //         Items[i].Name != "Sulfuras, Hand of Ragnaros"
-        //         )
-        //     {
-        //         Items[i].Quality = Items[i].Quality - 1;
-        //     }
-        //     else
-        //     {
-        //         if (Items[i].Quality < 50)
-        //         {
-        //             Items[i].Quality = Items[i].Quality + 1;
-        //
-        //             if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-        //             {
-        //                 if (Items[i].SellIn < 11)
-        //                 {
-        //                     if (Items[i].Quality < 50)
-        //                     {
-        //                         Items[i].Quality = Items[i].Quality + 1;
-        //                     }
-        //                 }
-        //
-        //                 if (Items[i].SellIn < 6)
-        //                 {
-        //                     if (Items[i].Quality < 50)
-        //                     {
-        //                         Items[i].Quality = Items[i].Quality + 1;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        //
-        //     if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-        //     {
-        //         Items[i].SellIn = Items[i].SellIn - 1;
-        //     }
-        //
-        //     if (Items[i].SellIn < 0)
-        //     {
-        //         if (Items[i].Name != "Aged Brie")
-        //         {
-        //             if (Items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-        //             {
-        //                 if (Items[i].Quality > 0)
-        //                 {
-        //                     if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
-        //                     {
-        //                         Items[i].Quality = Items[i].Quality - 1;
-        //                     }
-        //                 }
-        //             }
-        //             else
-        //             {
-        //                 Items[i].Quality = Items[i].Quality - Items[i].Quality;
-        //             }
-        //         }
-        //         else
-        //         {
-        //             if (Items[i].Quality < 50)
-        //             {
-        //                 Items[i].Quality = Items[i].Quality + 1;
-        //             }
-        //         }
-        //     }
+            Items[i].Quality = betterItem.Quality;
+            Items[i].SellIn = betterItem.SellIn;
         }
+    }
+
+    public void FirstUpdateBackstagePass(BetterItem item)
+    {
+        
+    }
+    
+    public void SecondUpdateBackstagePass(BetterItem item)
+    {
+        item.DegradeWeight += 1;
     }
 }
